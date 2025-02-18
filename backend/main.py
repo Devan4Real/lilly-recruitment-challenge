@@ -124,7 +124,55 @@ def delete_med(name: str = Form(...)):
                 return {"message": f"Medicine deleted successfully with name: {name}"}
     return {"error": "Medicine not found"}
 
-# Add your average function here
+@app.get("/quarterly-report")
+def quarterly_report():
+    """
+    quarterly report endpoint.
+    Returns:
+    dict: report contain price stats
+    """
+    with open('data.json') as meds:
+        data = json.load(meds)
+
+    prices = [med["price"] for med in data["medicines"] if med.get("price") is not None]
+
+    # In case no data available
+    if not prices:
+        return {
+            "report": {
+                "status": "no_data",
+                "message": "No medicine data available"
+            }
+        }
+
+    # stat
+    sorted_prices = sorted(prices)
+    total_medicines = len(prices)
+    avg_price = sum(prices) / total_medicines
+    median_price = (sorted_prices[total_medicines // 2] if total_medicines % 2 != 0
+                    else (sorted_prices[total_medicines // 2 - 1] + sorted_prices[total_medicines // 2]) / 2)
+
+    # Price distribution
+    price_ranges = {
+        "low": len([p for p in prices if p <= avg_price * 0.5]),
+        "medium": len([p for p in prices if avg_price * 0.5 < p <= avg_price * 1.5]),
+        "high": len([p for p in prices if p > avg_price * 1.5])
+    }
+
+    report = {
+        "average_price": round(avg_price, 2),
+        "total_medicines": total_medicines,
+        "median_price": round(median_price, 2),
+        "min_price": round(min(prices), 2),
+        "max_price": round(max(prices), 2),
+        "analysis": {
+            "price_distribution": price_ranges,
+            "price_variance": round(sum((p - avg_price) ** 2 for p in prices) / total_medicines, 2)
+        },
+        "status": "success"
+    }
+
+    return {"report": report}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

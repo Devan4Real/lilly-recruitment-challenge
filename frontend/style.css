@@ -1,32 +1,763 @@
+:root {
+--primary-color:rgb(9, 106, 196);
+--primary-dark:rgb(2, 61, 119);
+--secondary-color:rgb(195, 2, 18);
+--secondary-light:rgb(253, 86, 86);
+--background-color: #f4f4f4;
+--text-color: black;
+--white: #ffffff;
+}
+
 /* ---- Global styles ---- */
 
 /* CSS Reset */
-* {
-    box-sizing: border-box;
-}
 
+{
+box-sizing: border-box;
+}
 /* Body styles. DO NOT REMOVE OR EDIT UNLESS ABSOLUTELY NECESSARY */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 0;
-    margin: 0;
-    color: #333;
-    padding-top: 30px;
+font-family: Arial, sans-serif;
+background-color: #f4f4f4;
+padding: 0;
+margin: 0;
+color: #333;
+padding-top: 30px;
 }
 
 /* Disclaimer styles. DO NOT REMOVE OR EDIT UNLESS ABSOLUTELY NECESSARY */
 .disclaimer {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 0.5rem;
-    z-index: 1000;
-    font-weight: bold;
-    height: 30px;
+position: fixed;
+top: 0;
+width: 100%;
+background-color: rgb(0, 0, 0);
+color: white;
+text-align: center;
+padding: 0.5rem;
+z-index: 1000;
+font-weight: bold;
+height: 30px;
 }
 
 /* ---- Your custom styles below ---- */
+header {
+background-color: var(--background-color);
+color: var(--secondary-color);
+text-align: center;
+padding: 0.8rem;
+margin-bottom: 0.8rem;
+font-size: 1rem;
+letter-spacing: 0.5px;
+border-bottom: 3px solid var(--secondary-color);
+position: relative;
+}
+
+header::after {
+content: '';
+position: absolute;
+bottom: -3px;
+left: 0;
+width: 100%;
+height: 3px;
+box-shadow: 0 2px 4px rgba(230, 57, 70, 0.4);
+}
+
+main {
+max-width: 900px;
+margin: 0 auto;
+padding: 1rem;
+background-color: var(--white);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+border-radius: 6px;
+}
+
+.controls {
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+justify-content: flex-start;
+align-items: center;
+margin-bottom: 2rem;
+}
+
+.add-medicine-btn {
+margin-left: auto;
+background-color: green;
+color: var(--white);
+border: none;
+padding: 0.75rem 1rem;
+border-radius: 4px;
+cursor: pointer;
+font-size: 1rem;
+transition: background-color 0.3s ease;
+}
+.add-medicine-btn:hover,
+.add-medicine-btn:focus {
+background-color: var(--primary-dark);
+outline: 2px solid var(--primary-dark);
+}
+
+.search-box {
+padding: 0.75rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+width: 300px;
+font-size: 1rem;
+transition: outline 0.2s ease;
+}
+.search-box:focus {
+outline: 2px solid var(--primary-color);
+}
+
+.medicines-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  box-shadow: 0 1px 3px var(--text-color);
+  margin: 0 auto;
+  table-layout: fixed;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.medicines-table thead tr {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+}
+
+.medicines-table th,
+.medicines-table td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+  width: auto;
+}
+
+.medicines-table th:nth-child(1),
+.medicines-table td:nth-child(1) {
+  width: 40%; /* Name */
+  padding-left: 1.5rem;
+}
+.medicines-table th:nth-child(2),
+.medicines-table td:nth-child(2) {
+  width: 25%; /* Price */
+  text-align: left;
+  margin-left: 15px;
+}
+.medicines-table th:nth-child(3),
+.medicines-table td:nth-child(3) {
+  width: 35%; /* Actions */
+  item-align: left;
+}
+
+.medicines-table td:last-child {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-left: 15px;
+  padding: 0.75rem 1.5rem;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.action-btn {
+  background: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+  min-width: 80px;
+  text-align: center;
+}
+
+.action-btn:hover,
+.action-btn:focus {
+  background-color:rgb(40, 130, 214);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.action-btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+.retry-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  min-width: 80px;
+  transition: background-color 0.3s ease;
+}
+.retry-btn:hover,
+.retry-btn:focus {
+  background-color: var(--primary-dark);
+  outline: none;
+}
+
+.medicines-table td[colspan="3"] {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(white);
+}
+
+.table-error {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-left: 37vw;
+}
+.error-title {
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.error-message {
+  color:var(--text-color) !important;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.edit-btn {
+background: var(--primary-color);
+}
+
+.edit-btn:hover,
+.edit-btn:focus {
+background: var(--primary-dark);
+}
+
+.delete-btn {
+background: var(--secondary-light);
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+background: var(--secondary-color);
+}
+
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 1001;
+}
+
+.modal-content {
+background-color: var(--white);
+margin: 10% auto;
+padding: 2rem;
+width: 90%;
+max-width: 500px;
+border-radius: 8px;
+}
+
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+}
+
+.close-btn {
+background: none;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+}
+.close-btn:focus,
+.close-btn:hover {
+background-color:rgb(8, 8, 8);
+color: #e74c3c;
+}
+
+.form-group {
+margin-bottom: 1rem;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: bold;
+}
+
+.form-group input {
+width: 100%;
+padding: 0.75rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 1rem;
+}
+.form-group input:focus {
+outline: 2px solid var(--primary-color);
+}
+
+.submit-btn {
+background-color: var(--primary-color);
+color: var(--white);
+border: none;
+padding: 0.75rem 1rem;
+border-radius: 4px;
+cursor: pointer;
+width: 100%;
+font-size: 1rem;
+}
+.submit-btn:focus,
+.submit-btn:hover {
+background-color: var(--primary-dark);
+outline: 2px solid var(--primary-dark);
+}
+
+.error-message {
+color: #e74c3c;
+margin-top: 0.5rem;
+font-weight: bold;
+}
+
+.back-to-top {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: var(--secondary-light);
+color: var(--white);
+padding: 10px 15px;
+border-radius: 4px;
+text-decoration: none;
+font-size: 14px;
+text-align: center;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+}
+
+.back-to-top.visible {
+opacity: 1;
+visibility: visible;
+}
+
+.back-to-top:hover,
+.back-to-top:focus {
+background-color: var(--secondary-color);
+transform: translateY(-3px);
+border-radius: 6px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.quarterly-report-container {
+  background-color: var(--white);
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.quarterly-report-container h3 {
+color: var(--secondary-color);
+margin-bottom: 1rem;
+font-size: 1.2rem;
+text-align: center;
+}
+
+.quarterly-report-container p {
+font-size: 1rem;
+line-height: 1.5;
+color: var(--text-color);
+margin: 0.5rem 0;
+}
+
+.quarterly-report-container strong {
+font-weight: bold;
+}
+
+
+.report-section {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: 8px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: var(--background-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.stat-card .label {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-card .value {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.distribution-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.distribution-title {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.price-distribution {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.price-category {
+  background-color: var(--background-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+
+.price-category h4 {
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
+
+.price-category .count {
+  color: var(--secondary-color);
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.chart-container {
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+}
+
+.chart-bar {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  width: 100%;
+  min-height: 180px;
+  background-color: var(--white);
+  margin-left: 35vw;
+}
+
+.loading-report {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  width: auto;
+  min-height: 180px;
+  background-color: var(--white);
+}
+
+.loading-spinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner:after {
+
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--text-color);
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-spinner:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-top-color: var(--secondary-color);
+  border-right-color: var(--secondary-color);
+  animation: spin 1s linear infinite;
+}
+
+
+.quarterly-report-container .submit-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 250px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin: 1rem auto;
+}
+
+.quarterly-report-container .submit-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 480px) {
+  .quarterly-report-container .submit-btn {
+    width: 100%; 
+    padding: 0.75rem 1rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-box {
+    width: 100%;
+  }
+  .add-medicine-btn {
+    width: 100%;
+  }
+  .medicines-table th,
+  .medicines-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .medicines-table td:last-child {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+  }
+  .action-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  .back-to-top {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .quarterly-report-container {
+    padding: 1rem;
+    width: 95%;
+  }
+  .report-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .price-distribution {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-box,
+  .add-medicine-btn {
+    width: 100%;
+  }
+  
+  .medicines-table th,
+  .medicines-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+ 
+  .medicines-table td:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+    padding: 1rem;
+  }
+  
+  .action-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    min-width: 70px;
+  }
+  
+  .back-to-top {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .quarterly-report-container {
+    padding: 1rem;
+    width: 95%;
+    margin: 1rem auto;
+  }
+  
+  .report-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .price-distribution {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  header {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search-box,
+  .add-medicine-btn {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .medicines-table th,
+  .medicines-table td {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  .medicines-table td:last-child {
+    padding: 0.4rem;
+    gap: 0.5rem;
+  }
+  
+  .action-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 60px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 2% auto;
+    padding: 1rem;
+  }
+  
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card .value {
+    font-size: 1.25rem;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

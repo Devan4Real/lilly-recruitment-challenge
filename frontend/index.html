@@ -1,21 +1,68 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Medicine Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="disclaimer" id="disclaimer">
+    <div class="disclaimer">
         Disclaimer: All medicine names and prices used in this application are fictional and do not represent any real medicine(s).
     </div>
+    
     <header>
         <h1>Medicine Tracker</h1>
     </header>
-    <main>
 
+    <main>
+        <div class="controls">
+            <input type="text" class="search-box" placeholder="Search medicines..." id="searchInput">
+            <button class="add-medicine-btn" id="addMedicineBtn">Add New Medicine</button>
+        </div>
+
+        <table class="medicines-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="medicinesTableBody"></tbody>
+        </table>
+
+        <div class="quarterly-report-container">
+            <button class="submit-btn" id="showReportBtn">Show Quarterly Report</button>
+            <div id="reportContainer"></div>
+        </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal" id="medicineModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Medicine</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="medicineForm">
+                <div class="form-group">
+                    <label for="medicineName">Medicine Name</label>
+                    <input type="text" id="medicineName" required>
+                </div>
+                <div class="form-group">
+                    <label for="medicinePrice">Price</label>
+                    <input type="number" id="medicinePrice" step="0.01" min="0" required>
+                </div>
+                <button type="submit" class="submit-btn">Save Medicine</button>
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">↑<br>TOP</a>
+    
     <script src="script.js"></script>
 </body>
 </html>
