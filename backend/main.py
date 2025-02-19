@@ -8,7 +8,7 @@ Endpoints:
 - GET /medicines: Retrieve all medicines from the data.json file.
 - GET /medicines/{name}: Retrieve a single medicine by name from the data.json file.
 - POST /create: Create a new medicine with a specified name and price.
-- POST /update: Update the price of a medicine with a specified name.
+- PUT /update: Update the price of a medicine with a specified name.
 - DELETE /delete: Delete a medicine with a specified name.
 Functions:
 - get_all_meds: Reads the data.json file and returns all medicines.
@@ -81,7 +81,7 @@ def create_med(name: str = Form(...), price: float = Form(...)):
         
     return {"message": f"Medicine created successfully with name: {name}"}
 
-@app.post("/update")
+@app.put("/update")
 def update_med(name: str = Form(...), price: float = Form(...)):
     """
     This function updates the price of a medicine with the specified name.
